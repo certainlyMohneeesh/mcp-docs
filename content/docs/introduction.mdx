@@ -1,0 +1,115 @@
+---
+title: "What is MCP?"
+description: "Model Context Protocol (MCP) is an open standard that enables AI models to securely access context and perform actions."
+---
+
+## Core Concepts
+
+Learn about the foundational elements of the Model Context Protocol and how to build your own servers.
+
+<CardGroup>
+  <Card title="Quickstart" icon={<RiRocketLine className="size-6" />} href="/docs/quickstart">
+    Get up and running with MCP in under 5 minutes.
+  </Card>
+  <Card title="Building Servers" icon={<RiServerLine className="size-6" />} href="/docs/servers">
+    Learn how to expose tools, resources, and prompts from your own systems.
+  </Card>
+  <Card title="Clients" icon={<RiComputerLine className="size-6" />} href="/docs/clients">
+    Integrate MCP into your AI applications and chat interfaces.
+  </Card>
+</CardGroup>
+
+## Example Usage
+
+Here is a quick example of how you might initialize an MCP server using various languages. You can browse through the tabs.
+
+<CodeTabs languages="TypeScript, Python, Go, cURL">
+  <Tab>
+```typescript
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+
+const server = new Server(
+  { name: "my-mcp-server", version: "1.0.0" },
+  { capabilities: { tools: {} } }
+);
+
+const transport = new StdioServerTransport();
+await server.connect(transport);
+
+console.log("MCP Server running on stdio");
+```
+  </Tab>
+  <Tab>
+```python
+from mcp.server.fastmcp import FastMCP
+
+# Initialize a FastMCP server
+mcp = FastMCP("my-mcp-server")
+
+@mcp.tool()
+def add(a: int, b: int) -> int:
+    """Add two numbers"""
+    return a + b
+
+if __name__ == "__main__":
+    mcp.run(transport='stdio')
+```
+  </Tab>
+  <Tab>
+```go
+package main
+
+import (
+	"context"
+	"log"
+
+	"github.com/mark3labs/mcp-go/server"
+	"github.com/mark3labs/mcp-go/mcp"
+)
+
+func main() {
+	s := server.NewMCPServer("my-mcp-server", "1.0.0")
+
+	// Create tool
+	tool := mcp.NewTool("add", mcp.WithDescription("Add numbers"))
+	s.AddTool(tool, func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		return mcp.NewToolResultText("Result"), nil
+	})
+
+	if err := server.ServeStdio(s); err != nil {
+		log.Fatalf("Server error: %v", err)
+	}
+}
+```
+  </Tab>
+  <Tab>
+```bash
+# Example curl using MCP API (Assuming HTTP Transport adapter)
+curl -X POST http://localhost:8000/mcp/v1/tools/call \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": "1",
+    "method": "tools/call",
+    "params": {
+      "name": "add",
+      "arguments": { "a": 5, "b": 10 }
+    }
+  }'
+```
+  </Tab>
+</CodeTabs>
+
+## SDKs and Tools
+
+Various official and community SDKs are available to make building MCP servers and clients seamless across different ecosystems.
+
+<CardGroup>
+  <Card title="TypeScript SDK" icon={<RiCodeSSlashLine className="size-6" />} href="/docs/sdk/typescript">
+    The official TypeScript SDK for Node.js, Bun, and browser environments.
+  </Card>
+  <Card title="Python SDK" icon={<RiCodeBoxLine className="size-6" />} href="/docs/sdk/python">
+    The official Python SDK for seamless integration in AI workflows.
+  </Card>
+</CardGroup>

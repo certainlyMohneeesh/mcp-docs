@@ -72,7 +72,7 @@
   --chart-3: oklch(0.648 0.2 131.684);
   --chart-4: oklch(0.532 0.157 131.589);
   --chart-5: oklch(0.453 0.124 130.933);
-  --radius: 0.625rem;
+  --radius: 0rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0.008 326);
   --sidebar-primary: oklch(0.648 0.2 131.684);
@@ -126,5 +126,33 @@
   }
   html {
     @apply font-serif;
+  }
+  
+
+@layer base {
+  code[data-theme*=" "],
+  code[data-theme*=" "] span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+
+  .dark code[data-theme*=" "],
+  .dark code[data-theme*=" "] span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+}
+  html.dark [data-theme="light"],
+  html.dark [data-theme="github-light"],
+  .dark [data-theme="light"],
+  .dark [data-theme="github-light"] {
+    display: none !important;
+  }
+
+  html:not(.dark) [data-theme="dark"],
+  html:not(.dark) [data-theme="github-dark"],
+  :not(.dark) > [data-theme="dark"],
+  :not(.dark) > [data-theme="github-dark"] {
+    display: none !important;
   }
 }
