@@ -91,7 +91,7 @@ export const mdxComponents: MDXComponents = {
   h2: ({ className, ...props }) => (
     <h2
       className={cn(
-        "mt-14 scroll-mt-24 border-t border-border pt-10 text-2xl font-semibold tracking-tight text-foreground",
+        "mt-10 scroll-mt-24 border-t border-border pt-6 text-2xl font-semibold tracking-tight text-foreground",
         className,
       )}
       {...props}
@@ -99,27 +99,27 @@ export const mdxComponents: MDXComponents = {
   ),
   h3: ({ className, ...props }) => (
     <h3
-      className={cn("mt-10 scroll-mt-24 text-xl font-semibold text-foreground", className)}
+      className={cn("mt-6 scroll-mt-24 text-xl font-semibold text-foreground", className)}
       {...props}
     />
   ),
   p: ({ className, ...props }) => (
-    <p className={cn("mt-6 leading-7 text-muted-foreground", className)} {...props} />
+    <p className={cn("mt-4 leading-7 text-muted-foreground", className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
-    <ul className={cn("mt-6 list-disc space-y-2 pl-6 text-muted-foreground", className)} {...props} />
+    <ul className={cn("mt-4 list-disc space-y-1.5 pl-6 text-muted-foreground", className)} {...props} />
   ),
   ol: ({ className, ...props }) => (
-    <ol className={cn("mt-6 list-decimal space-y-2 pl-6 text-muted-foreground", className)} {...props} />
+    <ol className={cn("mt-4 list-decimal space-y-1.5 pl-6 text-muted-foreground", className)} {...props} />
   ),
-  li: ({ className, ...props }) => <li className={cn("leading-7", className)} {...props} />,
+  li: ({ className, ...props }) => <li className={cn("leading-6", className)} {...props} />,
   hr: ({ className, ...props }) => (
-    <hr className={cn("my-10 border-border", className)} {...props} />
+    <hr className={cn("my-8 border-border", className)} {...props} />
   ),
   blockquote: ({ className, ...props }) => (
     <blockquote
       className={cn(
-        "mt-6 border-l-2 border-primary pl-6 text-base italic text-muted-foreground",
+        "mt-4 border-l-2 border-primary pl-5 text-base italic text-muted-foreground",
         className,
       )}
       {...props}
@@ -192,13 +192,13 @@ export const mdxComponents: MDXComponents = {
   },
   img: ({ className, alt = "", ...props }) => (
     <img
-      className={cn("mt-6 w-full rounded-none border border-border", className)}
+      className={cn("mt-4 w-full rounded-none border border-border", className)}
       alt={alt}
       {...props}
     />
   ),
   table: ({ className, ...props }) => (
-    <div className="mt-6 overflow-x-auto">
+    <div className="mt-4 overflow-x-auto">
       <table className={cn("w-full text-left text-sm text-foreground", className)} {...props} />
     </div>
   ),
@@ -209,7 +209,7 @@ export const mdxComponents: MDXComponents = {
     <td className={cn("border-b border-border px-3 py-2 align-top text-muted-foreground", className)} {...props} />
   ),
   CardGroup: ({ children }: { children: ReactNode }) => (
-    <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
       {children}
     </div>
   ),

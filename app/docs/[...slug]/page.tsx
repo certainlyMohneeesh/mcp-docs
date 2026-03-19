@@ -85,7 +85,7 @@ export default async function DocsPage({ params }: DocsPageProps) {
               <p className="mt-2 text-xl text-muted-foreground">{doc.description}</p>
             ) : null}
           </header>
-          <div className="space-y-4">{content}</div>
+          <div>{content}</div>
         </article>
         <DocsToc headings={doc.headings} />
       </div>
