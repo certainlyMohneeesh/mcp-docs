@@ -127,7 +127,6 @@
   html {
     @apply font-serif;
   }
-  
 
 @layer base {
   code[data-theme*=" "],
