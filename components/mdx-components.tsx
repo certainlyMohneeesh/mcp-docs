@@ -1,4 +1,5 @@
-import type { ComponentProps, ReactNode } from "react";
+import { isValidElement } from "react";
+import type { ComponentProps, ReactElement, ReactNode } from "react";
 import type { MDXComponents } from "mdx/types";
 import * as RemixIcons from "@remixicon/react";
 import { cn } from "@/lib/utils";
@@ -8,7 +9,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/core/accordion";
-import { RiArrowUpSLine } from "@remixicon/react";
 
 import { CopyButton } from "./copy-button";
 
@@ -30,58 +30,56 @@ const getTextValue = (node: any): string => {
   return "";
 };
 
-function GoogleMeetToolsAccordion() {
-  const tools = [
-    {
-      id: "space-management",
-      title: "Meeting Space Management",
-      description:
-        "Create, retrieve, update, and end Google Meet spaces using create_meeting_space, get_meeting_space, update_meeting_space, and end_meeting_space.",
-    },
-    {
-      id: "conference-analytics",
-      title: "Conference Analytics",
-      description:
-        "Fetch conference-level insights with get_conference_record and list_conference_records for reporting, audits, and usage tracking.",
-    },
-    {
-      id: "participant-tracking",
-      title: "Participant Tracking",
-      description:
-        "Inspect people and attendance details with get_participant and list_participants, including pagination and filtering support.",
-    },
-    {
-      id: "session-history",
-      title: "Participant Session History",
-      description:
-        "Query granular join and leave session timelines with get_participant_session and list_participant_sessions.",
-    },
-  ];
+const toAccordionValue = (node: ReactNode): string => {
+  const raw = getTextValue(node)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return raw || "details-item";
+};
+
+const renderMdxDetails = ({
+  children,
+  className,
+}: {
+  children?: ReactNode;
+  className?: string;
+}) => {
+  const nodes = (Array.isArray(children) ? children : [children]).filter(
+    (node) => !(typeof node === "string" && node.trim() === ""),
+  );
+  const firstNode = nodes[0] as ReactElement<{ children?: ReactNode }> | undefined;
+
+  const hasSummary =
+    isValidElement(firstNode) &&
+    ((typeof firstNode.type === "string" &&
+      (firstNode.type === "summary" || firstNode.type === "MdxSummary")) ||
+      typeof firstNode.type === "function");
+
+  const summaryContent = hasSummary ? firstNode.props?.children : "Details";
+  const contentNodes = hasSummary ? nodes.slice(1) : nodes;
 
   return (
-    <Accordion
-      className="mt-6 flex w-full flex-col divide-y divide-border border border-border bg-background"
-      transition={{ duration: 0.2, ease: "easeInOut" }}
-    >
-      {tools.map((tool) => (
-        <AccordionItem key={tool.id} value={tool.id} className="px-4 py-2">
-          <AccordionTrigger className="w-full text-left text-foreground">
-            <div className="flex items-center justify-between">
-              <div className="font-medium">{tool.title}</div>
-              <RiArrowUpSLine className="h-4 w-4 text-foreground transition-transform duration-200 group-data-expanded:-rotate-180" />
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <p className="pt-2 text-sm text-muted-foreground">{tool.description}</p>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
+    <Accordion className={cn("mt-4 flex w-full flex-col divide-y divide-border", className)}>
+      <AccordionItem value={toAccordionValue(summaryContent)}>
+        <AccordionTrigger className="w-full py-0.5 text-left text-foreground">
+          <span className="font-medium">{summaryContent}</span>
+        </AccordionTrigger>
+        <AccordionContent className="pt-2">
+          <div className="space-y-3">{contentNodes}</div>
+        </AccordionContent>
+      </AccordionItem>
     </Accordion>
   );
-}
+};
 
 export const mdxComponents: MDXComponents = {
   ...iconComponents,
+  MdxDetails: renderMdxDetails,
+  MdxSummary: ({ children }: { children?: ReactNode }) => <>{children}</>,
+  details: ({ children, className }: ComponentProps<"details">) =>
+    renderMdxDetails({ children, className }),
+  summary: ({ children }: ComponentProps<"summary">) => <>{children}</>,
   h1: ({ className, ...props }) => (
     <h1
       className={cn("text-4xl font-bold tracking-tight text-foreground", className)}
@@ -230,6 +228,5 @@ export const mdxComponents: MDXComponents = {
     );
   },
   CodeTabs: CodeTabsComponent,
-  GoogleMeetToolsAccordion,
   Tab: ({ children }: { children: ReactNode }) => <>{children}</>,
 };

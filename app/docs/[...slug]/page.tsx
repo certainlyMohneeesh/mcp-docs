@@ -7,6 +7,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { DocsToc } from "@/components/docs-toc";
 import { mdxComponents } from "@/components/mdx-components";
 import { getAllDocSlugs, getDocBySlug } from "@/lib/docs";
+import { remarkMdxDetailsAccordion } from "@/lib/remark-mdx-details-accordion";
 
 import * as RemixIcons from "@remixicon/react";
 
@@ -48,7 +49,7 @@ export default async function DocsPage({ params }: DocsPageProps) {
     components: mdxComponents,
     options: {
       mdxOptions: {
-        remarkPlugins: [remarkGfm],
+        remarkPlugins: [remarkGfm, remarkMdxDetailsAccordion],
         rehypePlugins: [
           rehypeSlug,
           [rehypePrettyCode, { theme: { dark: "github-dark", light: "github-light" }, keepBackground: false }]
