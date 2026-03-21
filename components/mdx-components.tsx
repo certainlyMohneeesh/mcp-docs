@@ -174,7 +174,7 @@ export const mdxComponents: MDXComponents = {
       <div className={cn("group/pre relative border border-border bg-zinc-50 dark:bg-[#0d1117] rounded-none mcp-pre-wrapper", !isTab && "mt-6")}>
         <pre
           className={cn(
-            "overflow-x-auto p-4 text-[13px] rounded-none bg-transparent",
+            "scrollbar-minimal overflow-x-auto p-4 text-[13px] rounded-none bg-transparent",
             className,
           )}
           {...props}

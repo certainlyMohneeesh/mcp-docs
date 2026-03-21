@@ -57,7 +57,7 @@ export function CodeTabs({ items = [], languages, children }: CodeTabsProps) {
             ))}
           </div>
         </div>
-        <div className="relative [&_.mcp-pre-wrapper]:!mt-0 [&_.mcp-pre-wrapper]:!border-0 [&_.mcp-pre-wrapper]:!bg-transparent [&_.copy-btn]:!top-[-40px] [&_.copy-btn]:!bg-transparent [&_.copy-btn]:!border-0">
+        <div className="relative [&_.mcp-pre-wrapper]:!mt-0 [&_.mcp-pre-wrapper]:!border-0 [&_.mcp-pre-wrapper]:!bg-transparent [&_.mcp-pre-wrapper]:h-[22rem] sm:[&_.mcp-pre-wrapper]:h-[24rem] [&_.mcp-pre-wrapper_pre]:h-full [&_.mcp-pre-wrapper_pre]:overflow-auto [&_.mcp-pre-wrapper_pre]:overscroll-contain [&_.copy-btn]:!top-[-40px] [&_.copy-btn]:!bg-transparent [&_.copy-btn]:!border-0">
           {elements[0] ?? null}
         </div>
       </div>
@@ -79,7 +79,7 @@ export function CodeTabs({ items = [], languages, children }: CodeTabsProps) {
           ))}
         </TabsList>
       </div>
-      <div className="relative [&_.mcp-pre-wrapper]:!mt-0 [&_.mcp-pre-wrapper]:!border-0 [&_.mcp-pre-wrapper]:!bg-transparent [&_.copy-btn]:!top-[-40px] [&_.copy-btn]:!bg-transparent [&_.copy-btn]:!border-0 [&_.copy-btn]:group-hover/tabs:!opacity-100 [&_.copy-btn]:!opacity-0 [&_.copy-btn]:hover:!text-foreground">
+      <div className="relative [&_.mcp-pre-wrapper]:!mt-0 [&_.mcp-pre-wrapper]:!border-0 [&_.mcp-pre-wrapper]:!bg-transparent [&_.mcp-pre-wrapper]:h-[22rem] sm:[&_.mcp-pre-wrapper]:h-[24rem] [&_.mcp-pre-wrapper_pre]:h-full [&_.mcp-pre-wrapper_pre]:overflow-auto [&_.mcp-pre-wrapper_pre]:overscroll-contain [&_.copy-btn]:!top-[-40px] [&_.copy-btn]:!bg-transparent [&_.copy-btn]:!border-0 [&_.copy-btn]:group-hover/tabs:!opacity-100 [&_.copy-btn]:!opacity-0 [&_.copy-btn]:hover:!text-foreground">
         {elements.map((child, index) => {
           const tabValue = parsedItems[index] || `tab-${index}`;
           return (

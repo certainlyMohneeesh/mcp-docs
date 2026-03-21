@@ -72,7 +72,7 @@
   --chart-3: oklch(0.648 0.2 131.684);
   --chart-4: oklch(0.532 0.157 131.589);
   --chart-5: oklch(0.453 0.124 130.933);
-  --radius: 0rem;
+  --radius: 0.6rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0.008 326);
   --sidebar-primary: oklch(0.648 0.2 131.684);
@@ -121,14 +121,15 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-serif;
   }
 
-@layer base {
   code[data-theme*=" "],
   code[data-theme*=" "] span {
     color: var(--shiki-light);
@@ -141,17 +142,43 @@
     background-color: var(--shiki-dark-bg);
   }
 }
-  html.dark [data-theme="light"],
-  html.dark [data-theme="github-light"],
-  .dark [data-theme="light"],
-  .dark [data-theme="github-light"] {
-    display: none !important;
-  }
 
-  html:not(.dark) [data-theme="dark"],
-  html:not(.dark) [data-theme="github-dark"],
-  :not(.dark) > [data-theme="dark"],
-  :not(.dark) > [data-theme="github-dark"] {
-    display: none !important;
-  }
+html.dark [data-theme="light"],
+html.dark [data-theme="github-light"],
+.dark [data-theme="light"],
+.dark [data-theme="github-light"] {
+  display: none !important;
+}
+
+html:not(.dark) [data-theme="dark"],
+html:not(.dark) [data-theme="github-dark"],
+:not(.dark) > [data-theme="dark"],
+:not(.dark) > [data-theme="github-dark"] {
+  display: none !important;
+}
+
+.scrollbar-minimal {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--muted-foreground) 40%, transparent) transparent;
+}
+
+.scrollbar-minimal::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-minimal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-minimal::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted-foreground) 38%, transparent);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.scrollbar-minimal:hover::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted-foreground) 55%, transparent);
 }
